@@ -14,8 +14,8 @@ require 'nn'
 require 'cunn'
 require 'cudnn'
 path = require 'pl.path'
-require 'layers/CRF3'
-require 'layers/CRF3loss'
+--require 'layers/CRF3'
+--require 'layers/CRF3loss'
 require 'layers/CRF_ATF'
 require 'layers/CRF_ATFloss'
 
@@ -51,7 +51,6 @@ function M.setup(opt, checkpoint)
    if opt.optnet then
       local optnet = require 'optnet'
       local imsize = opt.dataset == 'cifar10' and 32 or 224 
-      --local sampleInput = torch.zeros(4,3,imsize,imsize):cuda()
       local sampleInput = ((opt.dataset == 'charadesflow') or (opt.dataset == 'charadesflow_more')) and torch.zeros(4,20,imsize,imsize):cuda() or torch.zeros(4,3,imsize,imsize):cuda()
       optnet.optimizeMemory(model, sampleInput, {inplace = false, mode = 'training'})
    end
