@@ -43,7 +43,7 @@ local function getSceneFromCSV(filename)
     local all = csvigo.load{path=filename, mode='tidy'}
     local ids, scenes = all['id'],all['scene']
     local labels, sceneMap = {},{}
-    local file = io.open("../scene_names.txt")
+    local file = io.open("datasets/Charades_v1_scenes.txt")
     local i = 0
     for line in file:lines() do
         sceneMap[line] = i
