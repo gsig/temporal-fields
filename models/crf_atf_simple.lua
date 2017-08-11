@@ -13,7 +13,7 @@ local nn = require 'nn'
 require 'cunn'
 require 'loadcaffe'
 
-local function createModel(opt)
+local function createModel(opt,dataopt)
    local model = loadcaffe.load(opt.pretrainpath .. 'VGG_ILSVRC_16_layers_deploy.prototxt', opt.pretrainpath .. 'VGG_ILSVRC_16_layers.caffemodel','cudnn')
 
    print(' => Replacing classifier with ' .. opt.nClasses .. '-way classifier')
@@ -24,9 +24,9 @@ local function createModel(opt)
       'expected last layer to be fully connected')
 
    local crf = require('layers/CRF_ATF')
-   local linear = crf(opt.batchSize,orig.weight:size(2),opt.goals,unpack(opt.dataopt))
+   dataopt = dataopt and dataopt or opt.dataopt
+   local linear = crf(opt.batchSize,orig.weight:size(2),false,opt.goals,unpack(dataopt))
    linear.name = "fc8"
-   self.OVGconditionedOnFeatures = false --makes it simpler (intent only using labels)
 
    model:remove(#model.modules)
    model:add(linear:cuda())
@@ -36,6 +36,7 @@ local function createModel(opt)
    end
 
    model:cuda()
+   model.dataopt = dataopt
 
    print(tostring(model))
    if opt.cudnn == 'deterministic' then
@@ -44,7 +45,7 @@ local function createModel(opt)
       end)
    end
    local crfloss = require('layers/CRF_ATFloss')
-   local criterion = crfloss(opt.intent_decay,opt.batchSize,orig.weight:size(2),opt.goals,unpack(opt.dataopt))
+   local criterion = crfloss(opt,opt.batchSize,orig.weight:size(2),opt.goals,unpack(dataopt))
 
    return model, criterion
 end

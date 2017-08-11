@@ -49,9 +49,9 @@ end
 local function sme(x,y,dim,sqz)
     -- sum(x*(exp(y)),dim)
     if not (sqz==false) then
-        return torch.sum(x:cmul(torch.exp(y):expandAs(x)),dim):squeeze()
+        return torch.sum(torch.exp(y:expandAs(x)):cmul(x),dim):squeeze()
     else
-        return torch.sum(x:cmul(torch.exp(y):expandAs(x)),dim)
+        return torch.sum(torch.exp(y:expandAs(x)):cmul(x),dim)
     end
 end
 
@@ -207,13 +207,13 @@ function CRF_ATFloss:updateOutput(input, target)
             print(('  ** Qi:%+.1e; Qo:%+.1e; Qh:%+.1e'):format(self.Qi:max(),self.Qi_omarginal:mean(),self.Qh:mean()))
         end
     end
-    assert(self.Qi_omarginal:sum() ~= -math.huge,'weird error in Qi')
-    assert(self.Qh:sum()           ~= -math.huge,'weird error in Qh')
+    assert(self.Qi_omarginal:sum() ~= -math.huge,'underflow in Qi')
+    assert(self.Qh:sum()           ~= -math.huge,'underflow in Qh')
 
     -- *** Calculate output messages
-    self.newPmessages =  sme(self.OO:cuda(), self.Qi_omarginal:view(bS,self.nO,1),2):float()
-    self.newPmessages2 = sme(self.OO:cuda(), self.Qi_omarginal:view(bS,1,self.nO),3):float()
-    self.newHmessages =  sme(self.OVG:cuda(),self.Qi_omarginal:view(bS,nO,1)     ,2):float()
+    self.newPmessages =  sme(self.OO, self.Qi_omarginal:view(bS,nO,1),2):float()
+    self.newPmessages2 = sme(self.OO, self.Qi_omarginal:view(bS,1,nO),3):float()
+    self.newHmessages =  sme(self.OVG,self.Qi_omarginal:view(bS,nO,1),2):float()
 
     self.newKmessages = self.Qi_omarginal:clone():float()
     self.newKgtmessages = torch.Tensor(bS,nO):zero()

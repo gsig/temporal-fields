@@ -35,7 +35,7 @@ function M.setup(opt, checkpoint)
       model,criterion = torch.load(opt.retrain):cuda()
       if not criterion then
           local _
-          _,criterion = require('models/' .. opt.netType)(opt)
+          _,criterion = require('models/' .. opt.netType)(opt,model.dataopt)
       end
    else
       print('=> Creating model from file: models/' .. opt.netType .. '.lua')

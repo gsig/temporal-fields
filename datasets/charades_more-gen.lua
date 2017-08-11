@@ -82,7 +82,10 @@ local function uniquerows(x)
             keep[i] = 0
         end
     end
-    return x[keep:view(keep:size(1),1):expandAs(x)]:unfold(1,2,2)
+    local function compare(a,b) return (a[1]<b[1]) or ((a[1]==b[1]) and (a[2]<b[2])) end
+    local out = x[keep:view(keep:size(1),1):expandAs(x)]:unfold(1,2,2):totable()
+    table.sort(out,compare)
+    return torch.LongTensor(out)
 end
 
 local function list2tensor(imagePaths)

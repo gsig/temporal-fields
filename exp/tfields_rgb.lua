@@ -23,7 +23,7 @@ morearg = {
 '-nThreads','3',
 '-batchSize','80',
 '-accumGrad','3',
-'-goals','30', 
+'-goals','60', 
 '-videoSize','0.1',
 '-videoSizeGoal','0.1',
 '-intent_decay', '1e-3',

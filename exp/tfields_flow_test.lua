@@ -20,9 +20,11 @@ morearg = {
 '-testSize','0.00001',
 '-nEpochs','80',
 '-convLR','1',
-'-nThreads','3',
+'-nThreads','5',
 '-batchSize','80',
 '-accumGrad','3',
+'-testOnly','true',
+--'-retrain','./tfields_flow.t7', -- path to the trained model to use
 '-goals','30', 
 '-videoSize','0.1',
 '-videoSizeGoal','0.1',

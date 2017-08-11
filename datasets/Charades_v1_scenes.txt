@@ -1,0 +1,16 @@
+Stairs
+Garage
+Kitchen
+Hallway
+Basement (A room below the ground floor)
+Home Office / Study (A room in a house used for work)
+Bathroom
+Dining room
+Bedroom
+Living room
+Pantry
+Laundry room
+Entryway (A hall that is generally located at the entrance of a house)
+Recreation room / Man cave
+Closet / Walk-in closet / Spear closet
+Other

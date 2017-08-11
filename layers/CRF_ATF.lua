@@ -5,7 +5,7 @@ require('layers/BlockGradient')
 
 local CRF_ATF, Module = torch.class('nn.CRF_ATF', 'nn.Module')
 
-function CRF_ATF:__init(batchSize,inputSize,nG,nO,nV,nS,indOV,indOS,indVS,indOVG)
+function CRF_ATF:__init(batchSize,inputSize,condition,nG,nO,nV,nS,indOV,indOS,indVS,indOVG)
     -- Sets up a Deep CRF model
     --
     -- This model models models a CRF over 4 variables: O, V, S, G
@@ -27,7 +27,7 @@ function CRF_ATF:__init(batchSize,inputSize,nG,nO,nV,nS,indOV,indOS,indVS,indOVG
     self.nV = nV
     self.nS = nS
     self.nG = nG
-    self.OVGconditionedOnFeatures = true
+    self.OVGconditionedOnFeatures = condition 
 
     -- convert sparse index pairs to linear indexes, or gather-like index tables
     self.nOV = indOV:size(1)
@@ -47,22 +47,21 @@ function CRF_ATF:__init(batchSize,inputSize,nG,nO,nV,nS,indOV,indOS,indVS,indOVG
     --self.model:add(nn.Linear(inputSize,self.nOS):noBias()) --doesn't help. Dropped
     
     -- set up FC layer to predict the ternery potential
+    local m6 = nn.Sequential()
     if self.OVGconditionedOnFeatures then
-        --self.model:add(nn.Linear(inputSize,self.nOVG):noBias()) -- To many parameters
+        --self.model:add(nn.Linear(inputSize,self.nOVG):noBias()) -- Too many parameters
         --This seems to do better
-        local m6 = nn.Sequential()
         m6:add(nn.BlockGradient()) -- for stability
         m6:add(nn.Linear(inputSize,100))
         m6:add(nn.ReLU())
         m6:add(nn.Dropout(0.5))
         m6:add(nn.Linear(100,self.nOVG):noBias())
-        self.model:add(m6) 
     else
         -- Doesn't do much worse for RGB and easier to train
         m6:add(nn.Constant(1,1))
         m6:add(nn.Linear(1,self.nOVG):noBias())
-        self.model:add(m6) 
     end
+    self.model:add(m6) 
 
     -- set up FC layer to predict the across-frame potential
     -- Drop the condition on the features for simplicity
