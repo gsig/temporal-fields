@@ -5,7 +5,9 @@ Contributor: Gunnar Atli Sigurdsson
 * This code implements a "Asynchronous Temporal Fields for Action Recognition" in Torch
 * This code extends the framework from github.com/gsig/charades-algorithms
 
-Details of the algorith can be found in:
+*Update 8/11/17: Bugfixes added. Please download pretrained models again, and start models from scratch.*
+
+Details of the algorithm can be found in:
 ```
 @inproceedings{sigurdsson2017asynchronous,
 author = {Gunnar A. Sigurdsson and Santosh Divvala and Ali Farhadi and Abhinav Gupta},
