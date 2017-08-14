@@ -50,11 +50,11 @@ function DataLoader:__init(dataset, opt, split)
    self.split = split
    self.epochSize = tonumber(opt.epochSize)
    if self.epochSize and (self.epochSize < 1) then
-       self.epochSize = torch.floor(self.epochSize * self.__size)
+       self.epochSize = torch.floor(self.epochSize * self.__size / opt.batchSize) * opt.batchSize
    end
    self.testSize = tonumber(opt.testSize)
    if self.testSize and (self.testSize < 1) then
-       self.testSize = torch.floor(self.testSize * self.__size)
+       self.testSize = torch.floor(self.testSize * self.__size / opt.batchSize) * opt.batchSize
    end
    if split=='val2' then
        self.batchSize = 25
