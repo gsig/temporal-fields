@@ -10,5 +10,5 @@
 # Combining the predictions (submission files) of those models using combine_rgb_flow.py
 # yields a final classification accuracy of 22.4% mAP (via charades_v1_classify.m)
 
-wget https://dl.dropboxusercontent.com/u/10728218/models/tfields_flow.t7
-wget https://dl.dropboxusercontent.com/u/10728218/models/tfields_rgb.t7
+wget -O tfields_flow.t7 https://www.dropbox.com/s/hc14c2tzanye0cy/tfields_flow.t7?dl=1
+wget -O tfields_rgb.t7 https://www.dropbox.com/s/r2et0psu1931a1h/tfields_rgb.t7?dl=1

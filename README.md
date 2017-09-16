@@ -25,7 +25,7 @@ yields a final classification accuracy of 22.4% mAP (evalated with charades_v1_c
 
 Evaluation Scripts for localization and classification are available at [allenai.org/plato/charades/](http://allenai.org/plato/charades/)
 
-Submission files for temporal fields and baselines for classification and localization that are compatible with the official evaluation codes on [allenai.org/plato/charades/](http://allenai.org/plato/charades/) are available here: [charades_submission_files.zip](https://dl.dropboxusercontent.com/u/10728218/charades_submission_files.zip). This might be helpful for comparing and contrasting different algorithms.
+Submission files for temporal fields and baselines for classification and localization that are compatible with the official evaluation codes on [allenai.org/plato/charades/](http://allenai.org/plato/charades/) are available here: [charades_submission_files.zip](https://www.dropbox.com/s/aw55dauebl87sth/charades_submission_files.zip?dl=1). This might be helpful for comparing and contrasting different algorithms.
 
 Baseline Codes for Activity Localization / Classification are available at [github.com/gsig/charades-algorithms](https://github.com/gsig/charades-algorithms)
 
@@ -69,8 +69,8 @@ Good luck!
 
 While the RGB net can be trained in a day on a modern GPU, the flow net requires nontrivial IO and time to converge. For your convenience we provide RGB and Flow models already trained on Charades using exp/tfields_rgb.lua and exp/tfields_flow.lua
 
-https://dl.dropboxusercontent.com/u/10728218/models/tfields_flow.t7
-https://dl.dropboxusercontent.com/u/10728218/models/tfields_rgb.t7
+https://www.dropbox.com/s/hc14c2tzanye0cy/tfields_flow.t7?dl=1
+https://www.dropbox.com/s/r2et0psu1931a1h/tfields_rgb.t7?dl=1
 
 * The flow model was obtained after 83 epochs (epochSize=0.1)
 * The flow model has a classification accuracy of 17.2% mAP (via charades_v1_classify.m)
