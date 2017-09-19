@@ -1,7 +1,7 @@
 require 'nn'
 torch.setdefaulttensortype('torch.FloatTensor')
-require('layers/Constant')
-require('layers/BlockGradient')
+if nn.Constant then print('nn.Constant exists') else require('layers/Constant') end
+if nn.BlockGradient then print('nn.BlockGradient exists') else require('layers/BlockGradient') end
 
 local CRF_ATF, Module = torch.class('nn.CRF_ATF', 'nn.Module')
 

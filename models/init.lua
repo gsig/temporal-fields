@@ -18,6 +18,8 @@ path = require 'pl.path'
 --require 'layers/CRF3loss'
 require 'layers/CRF_ATF'
 require 'layers/CRF_ATFloss'
+if nn.Constant then print('nn.Constant exists') else require('layers/Constant') end
+if nn.BlockGradient then print('nn.BlockGradient exists') else require('layers/BlockGradient') end
 
 local M = {}
 
