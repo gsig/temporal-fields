@@ -23,7 +23,7 @@ args = [
     '--train-size', '0.2',
     '--temporal-weight', '0.03',
     '--temporalloss-weight', '1.2',
-    '--window-smooth', '3',
+    '--window-smooth', '1',
     '--sigma', '300',
     '--val-size', '0.2',
     '--cache-dir', '/glusterfs/gsigurds/ai2/caches/',

@@ -46,6 +46,8 @@ def avg(iterator, weight=1.):
 
 
 def winsmooth(mat, kernelsize=1):
+    print('applying smoothing with kernelsize {}'.format(kernelsize))
+    mat.detach()
     n = mat.shape[0]
     out = mat.clone()
     for m in range(n):
@@ -142,7 +144,7 @@ class AsyncTFCriterion(nn.Module, MessagePassing):
     def __init__(self, args):
         MessagePassing.__init__(self, args.memory_size, args.temporal_weight, args.memory_decay, args.sigma)
         nn.Module.__init__(self)
-        self.msg_n = 10
+        self.msg_n = 5
         self.w_tloss = args.temporalloss_weight
         self.orig_loss = args.originalloss_weight
         self.adjustment = args.adjustment
@@ -197,4 +199,4 @@ class AsyncTFCriterion(nn.Module, MessagePassing):
                 out = winsmooth(out, kernelsize=self.winsmooth)
             return out, loss
         else:
-            return self.forward(a, aa, target, id_time, n=n + 1)
+            return self.forward(a, aa, target, id_time, n=n + 1, synchronous=synchronous)

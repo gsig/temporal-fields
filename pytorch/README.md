@@ -17,7 +17,7 @@ code = {https://github.com/gsig/temporal-fields},
 }
 ```
 
-Using the improved PyTorch code, a simple RGB-only model obtains 25.6% mAP (evaluated with charades_v1_classify.m).
+Using the improved PyTorch code, a simple RGB-only model obtains *26.1%* mAP (evaluated with charades_v1_classify.m).
 
 
 ## Technical Overview:
@@ -57,7 +57,7 @@ The AsyncTF RGB-model is single-frame model and can be trained in a day on a mod
 https://www.dropbox.com/s/1jqythww7fofyg3/asynctf_rgb.pth.tar?dl=1
 
 * The rgb model was obtained after 5 epochs (epochSize=0.1)
-* The rgb model has a classification accuracy of 25.6% mAP (evalated with charades_v1_classify.m)
+* The rgb model has a classification accuracy of 26.1% mAP (evalated with charades_v1_classify.m)
 
 To fine-tune those models, or run experiments, please see exp/asynctf_rgb.py
 
