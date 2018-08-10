@@ -17,7 +17,7 @@ code = {https://github.com/gsig/temporal-fields},
 }
 ```
 
-Using the improved PyTorch code, a simple RGB-only model obtains *26.1%* mAP (evaluated with charades_v1_classify.m).
+Using the improved PyTorch code, a simple RGB-only model obtains **26.1% mAP** (evaluated with charades_v1_classify.m).
 
 
 ## Technical Overview:

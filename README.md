@@ -19,7 +19,7 @@ code = {https://github.com/gsig/temporal-fields},
 
 **We have updated the codebase with an improved and simplified PyTorch model. Detail can be found under [pytorch](pytorch/)**
 
-Using the improved PyTorch code, a simple RGB model obtains *26.1% mAP* (evaluated with charades_v1_classify.m).
+Using the improved PyTorch code, a simple RGB model obtains **26.1% mAP** (evaluated with charades_v1_classify.m).
 Using the original Torch code, combining the predictions (submission files) of those models using combine_rgb_flow.py
 yields a final classification accuracy of 22.4% mAP (evaluated with charades_v1_classify.m).
 
