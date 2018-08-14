@@ -167,7 +167,7 @@ class AsyncTFCriterion(nn.Module, MessagePassing):
         qa += (aa * msg[:, :, None]).sum(1)
         qa += (aa * fmsg[:, None, :]).sum(2)
         qa = torch.nn.Sigmoid()(qa)
-        if self.balanceloss:
+        if self.balanceloss and self.training:
             qa = self.BalanceLabels(qa, target)
         loss = self.loss(qa, target)
         loss += self.loss(torch.nn.Sigmoid()(a), target) * self.orig_loss
