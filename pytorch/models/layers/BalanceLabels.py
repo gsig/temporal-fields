@@ -28,26 +28,25 @@ class BalanceLabels(nn.Module):
         self.total = 0
 
     def update_counts(self, target):
-        for tt in target:
-            for j, t in enumerate(tt):
-                if (t == 0).all():
-                    populate(self.zerocounts, j)
-                    self.zerocounts[j] += 1
-                else:
-                    populate(self.counts, j)
-                    self.counts[j] += 1
-            self.total += 1
+        n = target.shape[0]
+        tt = target.sum(0)
+        for j, t in enumerate(tt):
+            populate(self.counts, j)
+            populate(self.zerocounts, j)
+            self.counts[j] += t.item()
+            self.zerocounts[j] += n - t.item()
+        self.total += n
 
     def get_weights(self, target):
         weights = torch.zeros(*target.shape)
-        for i, tt in enumerate(target):
-            for j, t in enumerate(tt):
-                avg = self.total / 2
-                if (t == 0).all():
-                    weights[i, j] = avg / float(self.zerocounts[j])
+        for i in range(target.shape[0]):
+            for j in range(target.shape[1]):
+                if target[i, j].item() == 0:
+                    weights[i, j] = self.zerocounts[j]
                 else:
-                    weights[i, j] = avg / float(self.counts[j])
-        return Variable(weights)
+                    weights[i, j] = self.counts[j]
+        avg = self.total / 2
+        return Variable(avg / weights)
 
     def forward(self, inputs, target):
         self.update_counts(target)
